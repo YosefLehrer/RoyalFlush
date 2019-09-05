@@ -1,0 +1,25 @@
+{
+    "locations": [
+        {
+            "id": 1,
+            "name": "Johny John",
+            "rating": 1,
+            "address": "923 something way",
+            "price": 4
+        },
+        {
+            "id": 2,
+            "name": "Colin Shitter",
+            "rating": 1,
+            "address": "923 something way",
+            "price": 17
+        },
+        {
+            "id": 3,
+            "name": "Bobby Bobstiener",
+            "rating": 4,
+            "address": "923 something way",
+            "price": 2
+        }
+    ]
+}
