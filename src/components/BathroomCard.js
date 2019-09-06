@@ -4,10 +4,10 @@ class BathroomCard extends React.Component {
     render() {
 
         return (
-            <div>
-                <strong>Name: </strong>{this.props.bathroom.name} 
-                <strong> Address: </strong>{this.props.bathroom.address} 
-                <strong> Rating: </strong>{this.props.bathroom.rating} 
+            <div className="bathroom-card">
+                <strong>Name: </strong>{this.props.bathroom.name}<br/>
+                <strong> Address: </strong>{this.props.bathroom.address}<br/>
+                <strong> Rating: </strong>{this.props.bathroom.rating}<br/>
                 <strong> Price: </strong>{this.props.bathroom.price}
             </div>
             )

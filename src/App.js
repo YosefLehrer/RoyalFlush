@@ -5,14 +5,13 @@ import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
 import Bathrooms from './containers/Bathrooms';
 
-
 class App extends React.Component{
 
   render() {
     return (
       <div className="App">
         <Header />
-        {/* <LandingPage /> */}
+        <LandingPage />
         <Bathrooms /> 
         <Footer />
     </div>

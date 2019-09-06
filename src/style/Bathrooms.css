@@ -1,0 +1,17 @@
+.bathrooms-container{
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+}
+
+.bathroom-card{
+    border: 1px solid red;
+    text-align: left;
+    margin: 60px;
+}
+
+#logo-img{
+    height: 70px;
+    width: 70px;
+}

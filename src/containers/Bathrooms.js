@@ -1,5 +1,8 @@
 import React from 'react'
 import BathroomCard from '../components/BathroomCard'
+import '../style/Bathrooms.css'
+
+
 
 
 class Bathrooms extends React.Component {
@@ -7,15 +10,15 @@ class Bathrooms extends React.Component {
         bathroomArray: []
     }
     componentDidMount() {
-        fetch("http://localhost:3001/locations")
+        fetch("https://evening-reef-72357.herokuapp.com/locations")
         .then(resp=>resp.json())
         .then(data => this.setState({ bathroomArray: data}))
     }
     render() {
 
-        const bathrooms = this.state.bathroomArray.map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} />)
+        const bathrooms = this.state.bathroomArray.slice(0, 6).map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} />)
         return (
-            <div>
+            <div className="bathrooms-container">
                 {bathrooms}
             </div>
             )
