@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto;
-    background-color: black;
+    background-color: red;
 }
 
 .bathroom-card{
@@ -17,4 +17,10 @@
 #logo-img{
     height: 70px;
     width: 70px;
+}
+
+#bathroomPopUp{
+    grid-column: 1 / 3;
+    width: 100%;
+    background-color: aqua;
 }

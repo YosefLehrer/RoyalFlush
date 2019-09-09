@@ -1,6 +1,7 @@
 import React from 'react'
+import UserSignupForm from './UserSignupForm'
 
-const Header = () => {
+const Header = (props) => {
     return (
         <div>
             <div className="navbar-header">
@@ -10,9 +11,13 @@ const Header = () => {
                 </div>
                 <div className="">Maybe a search</div>
                 <div className="">Sign up as a Provider</div>
-                <div className="sign-in-username">Sign in username</div>
+                {props.currentUser ? <button onClick={() => {
+                    localStorage.removeItem('token')
+                    props.autoLogin()
+                    }}>Logout</button> :  <UserSignupForm handleChange={props.userHandleChange} userForm={props.userForm} handleSubmit={props.handleSubmit}/>}
+                {/* <div className="sign-in-username">Sign in username</div>
                 <div className="sign-in-password">Sign in password</div>
-                <div className="sign-in-button">Sign in button</div>
+                <div className="sign-in-button">Sign in button</div> */}
             </div>
         </div>
     )
