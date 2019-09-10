@@ -2,7 +2,6 @@ import React from 'react'
 
 class BathroomCard extends React.Component {
     render() {
-
         return (
             <div id={ this.props.id ? "bathroomPopUp" : null } className="bathroom-card" onClick={() => this.props.handleBathroomClick(this.props.bathroom)}>
                 <strong>Name: </strong>{this.props.bathroom.name}<br/>

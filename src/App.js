@@ -13,7 +13,8 @@ class App extends React.Component{
   state = {
     userForm: defaultUserForm,
     currentUser: "",
-    providerForm: defaultProviderForm
+    providerForm: defaultProviderForm,
+    userDuties: []
   }
 
   componentDidMount(){
@@ -34,7 +35,8 @@ class App extends React.Component{
           if (data.errors){
             console.log("sup Ben this is an error message:", data.errors)
           } else {
-            this.setState({currentUser: data})
+            console.log("in the auto login", data)
+            this.setState({currentUser: data.user, userDuties: data.user_duties})
             this.props.history.push('/bathrooms')
           }
         })        
@@ -99,11 +101,12 @@ class App extends React.Component{
   }
 
   render() {
+    console.log("in the app render", this.state)
     return (
       <div className="App">
         <Header history={this.props.history} currentUser={this.state.currentUser} userHandleChange={this.userHandleChange} handleLogin={this.handleLogin} userForm={this.state.userForm} autoLogin={this.autoLogin}/>
         <Switch>
-          <Route path="/bathrooms" component={Bathrooms} />
+          <Route path="/bathrooms" render={() => <Bathrooms userDuties={this.state.userDuties} />} />
           <Route path="/providersignup" render={() => <ProviderSignupForm providerForm={this.state.providerForm} providerHandleChange={this.providerHandleChange} providerSubmit={this.providerSubmit} />} />
           <Route path="/" render={() => <LandingPage autoLogin={this.autoLogin} />} />
         </Switch>

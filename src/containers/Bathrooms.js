@@ -55,9 +55,20 @@ class Bathrooms extends React.Component {
     render() {
 
         const bathrooms = this.state.bathroomArray.map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} handleBathroomClick={this.handleBathroomClick}/>)
+        const userDuties = this.props.userDuties.map(duty => this.state.bathroomArray.find(bath => bath.id === duty.location_id))
+        let finalArray;
+        if (userDuties[0]){
+            finalArray = userDuties.map(userDuty => <div>{userDuty.name}<br/><br/></div>)
+        } else {
+            finalArray = []
+        }
+        console.log("In the bathrooms render", this.props)
         return (
-            <div className="bathrooms-container">
+            <div className="logged-in-container">
+                <div>{finalArray}</div>
+                <div className="bathrooms-container">
                 {this.state.selectedToilet ? <BathroomCard id="bathroomPopUp" key={this.state.selectedToilet.id} bathroom={this.state.selectedToilet} handleBathroomClick={this.handleBathroomClick } takeADuty={this.takeADuty} /> : bathrooms}
+                </div>
             </div>
             )
         }
