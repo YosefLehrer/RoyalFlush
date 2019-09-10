@@ -68,7 +68,7 @@ class App extends React.Component{
     if(!this.state.providerForm.name || !this.state.providerForm.address || !this.state.providerForm.capacity || !this.state.providerForm.price || !this.state.providerForm.image){
       console.log("you dumb shit")
     }else{
-      fetch(`http://localhost:3001/location`, {
+      fetch(`http://localhost:3001/locations`, {
         method: 'POST',
         headers: {
           'accept': 'application/json',
