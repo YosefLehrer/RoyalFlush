@@ -1,17 +1,17 @@
 import React from 'react'
 
-const UserSignupForm = (props) => {
+const UserLogin = (props) => {
     return (
-        <div className="ProviderSignupForm">
-            <form onSubmit={(event) => props.handleSignup(event, "signup")}>
+        <>
+            <form onSubmit={(event) => props.handleLogin(event, "login")}>
                 <label>Username </label>
                 <input onChange={props.handleChange} value={props.userForm.username} name="username" type="text" placeholder="Username"/> <br/>
                 <label>Password </label>
                 <input onChange={props.handleChange} value={props.userForm.password} name="password" type="password" placeholder="Password"/><br/>
-                <input type="submit" value="Signup" />
+                <input type="submit" value="Login" />
             </form>
-        </div>
+        </>
     )
 }
 
-export default UserSignupForm
+export default UserLogin

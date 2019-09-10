@@ -2,9 +2,6 @@ import React from 'react'
 import BathroomCard from '../components/BathroomCard'
 import '../style/Bathrooms.css'
 
-
-
-
 class Bathrooms extends React.Component {
     state = {
         bathroomArray: [],
@@ -41,7 +38,6 @@ class Bathrooms extends React.Component {
         })
         .then(json => json.json())
         .then(data => {
-            console.log(data)
             const bensPrompt = prompt("Please rate your experience")
             fetch(`http://localhost:3001/duties/${data.id}`, {
                 method: 'PATCH',
@@ -61,7 +57,7 @@ class Bathrooms extends React.Component {
         const bathrooms = this.state.bathroomArray.map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} handleBathroomClick={this.handleBathroomClick}/>)
         return (
             <div className="bathrooms-container">
-                {this.state.selectedToilet ? <div><BathroomCard id="bathroomPopUp" key={this.state.selectedToilet.id} bathroom={this.state.selectedToilet} handleBathroomClick={this.handleBathroomClick } takeADuty={this.takeADuty} /></div> : bathrooms}
+                {this.state.selectedToilet ? <BathroomCard id="bathroomPopUp" key={this.state.selectedToilet.id} bathroom={this.state.selectedToilet} handleBathroomClick={this.handleBathroomClick } takeADuty={this.takeADuty} /> : bathrooms}
             </div>
             )
         }
