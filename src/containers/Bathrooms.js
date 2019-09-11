@@ -12,20 +12,15 @@ class Bathrooms extends React.Component {
         this.state.selectedToilet ? this.setState({selectedToilet: null}) : this.setState({selectedToilet: bathroomObj})
     }
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition((pos) => {
-            const usersLocation = pos.coords
-            const {latitude, longitude} = usersLocation
             fetch("http://localhost:3001/locations", {
                 headers: {
                     'accept': 'application/json',
-                    Latitude: latitude,
-                    Longitude: longitude
+                    Latitude: this.props.latitude,
+                    Longitude: this.props.longitude
                 }
             })
             .then(resp => resp.json())
-            .then(data => {
-                this.setState({ bathroomArray: data})})
-        })
+            .then(data => {this.setState({ bathroomArray: data})})
     }
 
     takeADuty = () => {

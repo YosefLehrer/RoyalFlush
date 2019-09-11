@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = (props) => {
     return (
-        <h1>Oh hi Ben! From the footer</h1>
+        <div>
+            <h1>Oh hi Ben! From the footer</h1>
+            <p><strong>Your Location:</strong> {props.longitude}, {props.latitude}</p>
+        </div>
     )
 }
 

@@ -14,10 +14,20 @@ class App extends React.Component{
     userForm: defaultUserForm,
     currentUser: "",
     providerForm: defaultProviderForm,
-    userDuties: []
+    userDuties: [],
+    latitude: localStorage.getItem('latitude'),
+    longitude: localStorage.getItem('longitude')
   }
 
+
   componentDidMount(){
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const usersLocation = pos.coords
+      const {latitude, longitude} = usersLocation
+      this.setState({latitude: latitude, longitude: longitude})
+      localStorage.setItem('latitude', latitude)
+      localStorage.setItem('longitude', longitude)
+    })
     this.autoLogin()
   }
 
@@ -75,6 +85,11 @@ class App extends React.Component{
         },
         body: JSON.stringify(this.state.providerForm)
       })
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({ providerForm: defaultProviderForm})
+        this.props.history.push('/bathrooms')
+      })
     }
   }
 
@@ -115,12 +130,11 @@ class App extends React.Component{
       <div className="App">
         <Header history={this.props.history} currentUser={this.state.currentUser} userHandleChange={this.userHandleChange} handleLogin={this.handleLogin} userForm={this.state.userForm} autoLogin={this.autoLogin}/>
         <Switch>
-          <Route path="/bathrooms" render={() => <Bathrooms handlePromptSubmission={this.handlePromptSubmission} userDuties={this.state.userDuties} />} />
+          <Route path="/bathrooms" render={() => <Bathrooms handlePromptSubmission={this.handlePromptSubmission} userDuties={this.state.userDuties} latitude={this.state.latitude} longitude={this.state.longitude} />} />
           <Route path="/providersignup" render={() => <ProviderSignupForm providerForm={this.state.providerForm} providerHandleChange={this.providerHandleChange} providerSubmit={this.providerSubmit} />} />
           <Route path="/" render={() => <LandingPage autoLogin={this.autoLogin} />} />
         </Switch>
-        {/* { this.state.currentUser ? <Bathrooms /> : <p> Please sign in to poop</p>} */}
-        <Footer />
+        <Footer latitude={this.state.latitude} longitude={this.state.longitude} />
     </div>
   );
   }
