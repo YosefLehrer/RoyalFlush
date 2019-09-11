@@ -23,7 +23,8 @@ class Bathrooms extends React.Component {
                 }
             })
             .then(resp => resp.json())
-            .then(data => this.setState({ bathroomArray: data}))
+            .then(data => {
+                this.setState({ bathroomArray: data})})
         })
     }
 
@@ -38,7 +39,7 @@ class Bathrooms extends React.Component {
         })
         .then(json => json.json())
         .then(data => {
-            const bensPrompt = prompt("Please rate your experience")
+            const bensPrompt = prompt("Please rate your experience from 1 through 5 (5 being really crappy)")
             fetch(`http://localhost:3001/duties/${data.id}`, {
                 method: 'PATCH',
                 headers: {
@@ -48,24 +49,29 @@ class Bathrooms extends React.Component {
                 body: JSON.stringify({rating: parseInt(bensPrompt)})
             })
             .then(json => json.json())
-            .then(data => console.log(data))
+            .then(data => {
+                this.props.handlePromptSubmission(data.name)
+                this.setState({bathroomArray: this.state.bathroomArray})})
         })
     }
 
     render() {
 
-        const bathrooms = this.state.bathroomArray.map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} handleBathroomClick={this.handleBathroomClick}/>)
-        const userDuties = this.props.userDuties.map(duty => this.state.bathroomArray.find(bath => bath.id === duty.location_id))
-        let finalArray;
-        if (userDuties[0]){
-            finalArray = userDuties.map(userDuty => <div>{userDuty.name}<br/><br/></div>)
-        } else {
-            finalArray = []
-        }
-        console.log("In the bathrooms render", this.props)
+        const bathrooms = this.state.bathroomArray.map(bathroom => <BathroomCard key={bathroom.id} bathroom={bathroom} handleBathroomClick={this.handleBathroomClick} />)
+        // const uniqueUserDuties = this.props.userDuties.map(duty => this.state.bathroomArray.find(bath => bath.id === duty.location_id))
+        // let finalArray;
+        // if (uniqueUserDuties[0]){
+        //     finalArray = uniqueUserDuties.map(userDuty => <div key={userDuty.id}>{userDuty.name}<br/><br/></div>)
+        // } else {
+        //     finalArray = []
+        // }
+        const finalArray = this.props.userDuties.map(userDuty => <div>{userDuty}<br/><br/></div>)
         return (
             <div className="logged-in-container">
-                <div>{finalArray}</div>
+                <div>
+                    <strong>Your Recent Duties:<br/></strong>
+                {finalArray}
+                </div>
                 <div className="bathrooms-container">
                 {this.state.selectedToilet ? <BathroomCard id="bathroomPopUp" key={this.state.selectedToilet.id} bathroom={this.state.selectedToilet} handleBathroomClick={this.handleBathroomClick } takeADuty={this.takeADuty} /> : bathrooms}
                 </div>

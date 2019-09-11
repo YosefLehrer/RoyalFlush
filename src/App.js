@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -33,9 +33,7 @@ class App extends React.Component{
         .then(response => response.json())
         .then(data => {
           if (data.errors){
-            console.log("sup Ben this is an error message:", data.errors)
           } else {
-            console.log("in the auto login", data)
             this.setState({currentUser: data.user, userDuties: data.user_duties})
             this.props.history.push('/bathrooms')
           }
@@ -68,7 +66,6 @@ class App extends React.Component{
   providerSubmit = (event) => {
     event.preventDefault()
     if(!this.state.providerForm.name || !this.state.providerForm.address || !this.state.providerForm.capacity || !this.state.providerForm.price || !this.state.providerForm.image){
-      console.log("you dumb shit")
     }else{
       fetch(`http://localhost:3001/locations`, {
         method: 'POST',
@@ -100,13 +97,25 @@ class App extends React.Component{
     })
   }
 
+  handlePromptSubmission = (dutyName) => {
+    if(!this.state.userDuties.includes(dutyName)){
+      this.setState({
+        userDuties: [dutyName, ...this.state.userDuties]
+      })
+    } else {
+      let filteredDuties = this.state.userDuties.filter(duty => duty !== dutyName)
+      this.setState({
+        userDuties: [dutyName, ...filteredDuties]
+      })
+    }
+  }
+
   render() {
-    console.log("in the app render", this.state)
     return (
       <div className="App">
         <Header history={this.props.history} currentUser={this.state.currentUser} userHandleChange={this.userHandleChange} handleLogin={this.handleLogin} userForm={this.state.userForm} autoLogin={this.autoLogin}/>
         <Switch>
-          <Route path="/bathrooms" render={() => <Bathrooms userDuties={this.state.userDuties} />} />
+          <Route path="/bathrooms" render={() => <Bathrooms handlePromptSubmission={this.handlePromptSubmission} userDuties={this.state.userDuties} />} />
           <Route path="/providersignup" render={() => <ProviderSignupForm providerForm={this.state.providerForm} providerHandleChange={this.providerHandleChange} providerSubmit={this.providerSubmit} />} />
           <Route path="/" render={() => <LandingPage autoLogin={this.autoLogin} />} />
         </Switch>

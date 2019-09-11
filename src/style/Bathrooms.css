@@ -1,23 +1,43 @@
 .logged-in-container{
-    margin: 50px auto;
+    /* margin: 50px auto; */
     display: grid;
-    grid-template-columns: 100px auto;
+    grid-template-columns: 1fr 9fr;
 }
 
 .bathrooms-container{
-    margin: auto;
+    /* margin: auto; */
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto;
-    background-color: red;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-rows: 300px 300px;
+    grid-auto-rows: 300px;
+    background-color: #6B3C20;
 }
 
 .bathroom-card{
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.4);
     text-align: left;
     padding: 50px;
     margin: 10px
+}
+
+.bathroom-card{
+    /* height: 100px;
+    object-fit: contain;
+    padding-left: 50%; */
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+}
+
+.bathroom-card-info{
+    text-align: left;
+    margin-right: 5px;
+}
+.bathroom-card-img > img{
+    height: 100px;
+    object-fit: cover;
+    margin-left: auto;
 }
 
 #logo-img{
@@ -27,6 +47,6 @@
 
 #bathroomPopUp{
     grid-column: 1 / 3;
-    width: 100%;
+    /* width: 100%; */
     background-color: aqua;
 }
